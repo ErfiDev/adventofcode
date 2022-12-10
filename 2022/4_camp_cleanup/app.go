@@ -5,19 +5,33 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"strconv"
 	"strings"
 )
 
 type Pair struct {
-	start1 string
-	end1   string
-	start2 string
-	end2   string
+	start1 int
+	end1   int
+	start2 int
+	end2   int
 }
 
 func main() {
 	pairs := readFile("./puzzle")
-	fmt.Println(pairs)
+
+	overlap := analyze(pairs)
+	fmt.Println(overlap)
+}
+
+func analyze(pairs []Pair) int {
+	overlap := 0
+	for _, p := range pairs {
+		if (p.start1 >= p.start2 && p.end1 <= p.end2) || (p.start2 >= p.start1 && p.end2 <= p.end1) {
+			overlap++
+		}
+	}
+
+	return overlap
 }
 
 func readFile(path string) []Pair {
@@ -40,13 +54,15 @@ func readFile(path string) []Pair {
 		splitByComma := strings.Split(line, ",")
 		for i, e := range splitByComma {
 			splitByHiphen := strings.Split(e, "-")
+			toInt0, _ := strconv.Atoi(splitByHiphen[0])
+			toInt1, _ := strconv.Atoi(splitByHiphen[1])
 
 			if i == 0 {
-				pair.start1 = splitByHiphen[0]
-				pair.end1 = splitByHiphen[1]
+				pair.start1 = toInt0
+				pair.end1 = toInt1
 			} else if i == 1 {
-				pair.start2 = splitByHiphen[0]
-				pair.end2 = splitByHiphen[1]
+				pair.start2 = toInt0
+				pair.end2 = toInt1
 			}
 		}
 
