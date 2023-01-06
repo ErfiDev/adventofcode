@@ -2,10 +2,8 @@ package main
 
 import (
 	"bufio"
-	"fmt"
 	"log"
 	"os"
-	"strings"
 )
 
 type Stack struct {
@@ -39,22 +37,13 @@ func readFile(path string) []Stack {
 	defer file.Close()
 
 	s := bufio.NewScanner(file)
-	s.Split(bufio.ScanLines)
 
-	var stacks string
+	// var stacks []string
+	// var commands []string
 
-	for s.Scan() {
-		t := s.Text()
-		if t == "" {
-			break
-		}
+	if s.Scan() {
 
-		stacks += t + "\n"
 	}
-
-	fmt.Println(stacks)
-
-	_ = strings.NewReader(stacks)
 
 	return nil
 }
