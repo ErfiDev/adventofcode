@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bufio"
+	"fmt"
 	"log"
 	"os"
 )
@@ -36,14 +36,13 @@ func readFile(path string) []Stack {
 
 	defer file.Close()
 
-	s := bufio.NewScanner(file)
-
-	// var stacks []string
-	// var commands []string
-
-	if s.Scan() {
-
+	var data []byte
+	_, err = file.Read(data)
+	if err != nil {
+		log.Fatal(err)
 	}
+
+	fmt.Println(data)
 
 	return nil
 }
